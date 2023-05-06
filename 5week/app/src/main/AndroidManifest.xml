@@ -23,6 +23,10 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="com.a5week.MakememoActivity">
+
+        </activity>
+
     </application>
 
 </manifest>
