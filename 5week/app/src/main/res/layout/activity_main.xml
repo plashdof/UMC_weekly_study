@@ -110,23 +110,9 @@
 
             </androidx.cardview.widget.CardView>
 
-
-
-
         </LinearLayout>
 
-
-
-
-
-
     </FrameLayout>
-
-
-
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

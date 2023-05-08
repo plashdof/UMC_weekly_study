@@ -16,11 +16,11 @@ class MakememoActivity : AppCompatActivity(){
     val TAG = "debugging"
     var text = ""
     var title = ""
-    var position = 0
+    private var position = 0
     private var date = ""
     private var time = ""
-
-    var fixState = false
+    private var mode = 0
+    private var fixState = false
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,9 +51,10 @@ class MakememoActivity : AppCompatActivity(){
             date = dateFormat.format(currentTime)
             time = timeFormat.format(currentTime)
 
-            if(title.isNullOrBlank()) title = "제목없음"
+
+            if(title.isBlank()) title = "제목없음"
             
-            val data = MemoData(text,title,date,time)
+            val data = MemoData(text,title,date,time, mode)
             
             // 수정하는 경우 구분
             if(fixState){
