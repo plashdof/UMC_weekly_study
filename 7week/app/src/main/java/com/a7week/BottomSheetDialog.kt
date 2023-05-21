@@ -27,6 +27,9 @@ class BottomSheetDialog : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        
+        // 각 Edit Text Focus 되면, Warning 메세지 사라지게 하기
+
         binding.etHour.setOnFocusChangeListener { view, hasFocus ->
             if(hasFocus){
                 binding.tvWarning.visibility = View.GONE
@@ -53,8 +56,13 @@ class BottomSheetDialog : BottomSheetDialogFragment() {
             Log.d(TAG, "$stringHour $stringMinute $stringSecond")
 
             if(stringHour.isBlank() && stringMinute.isBlank() && stringSecond.isBlank()){
+                
+                // 아무것도 입력하지 않았으면, Warning 메세지 보여줌
                 binding.tvWarning.visibility = View.VISIBLE
+
             }else{
+                
+                // 각 입력값이 빈칸이 아닐경우만, Singleton 에 값 저장
                 if(stringHour.isNotBlank()) SingleTon.hours = stringHour.toInt()
                 if(stringMinute.isNotBlank()) SingleTon.minutes = stringMinute.toInt()
                 if(stringSecond.isNotBlank()) SingleTon.seconds = stringSecond.toInt()

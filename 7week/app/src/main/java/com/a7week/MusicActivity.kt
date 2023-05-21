@@ -26,18 +26,26 @@ class MusicActivity : AppCompatActivity() {
     private var duration : Long = 0
     private var threadState = true
     inner class RoomToAdapter(){
+        
+        // 음악 선택했을경우 동작
         fun MusicClicked(music : MusicData){
-
-
+            
             runOnUiThread {
                 threadState = false
+                
+                // 음악 제목 / 아티스트 / 포스터 / mp3 파일 셋팅
+                // mediaPlayer 생성
                 binding.tvTitle.text  = music.title
                 binding.tvArtist.text  = music.artist
                 binding.ivImage.setImageResource(music.poster)
                 mediaPlayer = MediaPlayer.create(this@MusicActivity, music.music)
 
                 mediaPlayer.setOnPreparedListener{
-                    Log.d(TAG,"setonPrepared")
+                    
+                    // mediaPlayer의 총 길이를 불러와서
+                    // seekBar 의 최댓값으로 셋팅
+                    // seekBar 의 현재값 0 으로 셋팅
+                    
                     duration = mediaPlayer.duration.toLong()
                     mediaFileLength = mediaPlayer.duration
                     binding.seekBar.max = mediaFileLength
@@ -48,17 +56,24 @@ class MusicActivity : AppCompatActivity() {
                 binding.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
                     override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                         if(fromUser){
+                            // Seekbar 손으로 드래그할경우 로직 처리
                             mediaPlayer.seekTo(progress)
                             duration = progress.toLong()
                             setTimeText()
                         }
                     }
                     override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                        
+                        // 드래그 시작했을 경우 음악 일시정지 하기
+                        
                         mediaPlayer.pause()
                         binding.btnPlay.setImageResource(R.drawable.play)
                         state = false
                     }
                     override fun onStopTrackingTouch(seekBar: SeekBar?) {
+
+                        // 드래그 멈췄을 경우 음악 다시 시작하기
+                        
                         mediaPlayer.start()
                         binding.btnPlay.setImageResource(R.drawable.pause)
                         updateSeekBar()
@@ -108,10 +123,11 @@ class MusicActivity : AppCompatActivity() {
 
     }
 
+    // SeekBar 의 progress 와 position 을 0.01초마다 업데이트
     private fun updateSeekBar() {
         binding.seekBar.progress = mediaPlayer.currentPosition
         if (mediaPlayer.isPlaying) {
-            handler.postDelayed({ updateSeekBar() }, 1000)
+            handler.postDelayed({ updateSeekBar() }, 10)
         }
     }
 
