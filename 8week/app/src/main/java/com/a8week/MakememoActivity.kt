@@ -5,9 +5,12 @@ import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.a8week.databinding.ActivityMakememoBinding
+import com.a8week.model.Data
+import com.a8week.model.MemoData
 import java.text.SimpleDateFormat
 
 class MakememoActivity : AppCompatActivity(){
@@ -16,7 +19,7 @@ class MakememoActivity : AppCompatActivity(){
     val TAG = "debugging"
     var text = ""
     var title = ""
-    private var position = 0
+    private var id = 0
     private var date = ""
     private var time = ""
     private var mode = 0
@@ -29,9 +32,9 @@ class MakememoActivity : AppCompatActivity(){
         setContentView(binding.root)
 
         // 수정하는 경우 데이터 덮어쓰기
-        if(intent.hasExtra("position")){
+        if(intent.hasExtra("id")){
             fixState = true
-            position = intent.getStringExtra("position")!!.toInt()
+            id = intent.getStringExtra("id")!!.toInt()
             text = intent.getStringExtra("text").toString()
             title = intent.getStringExtra("title").toString()
             binding.etText.setText(text)
@@ -53,12 +56,11 @@ class MakememoActivity : AppCompatActivity(){
 
 
             if(title.isBlank()) title = "제목없음"
-            
-            val data = MemoData(text,title,date,time, mode)
+            val data = MemoData(id,text,title,date,time, mode)
             
             // 수정하는 경우 구분
             if(fixState){
-                Data.fixMemos(data,position)
+                Data.fixMemos(data)
             }else{
                 Data.plusMemos(data)
             }

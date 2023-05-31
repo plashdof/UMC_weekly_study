@@ -10,12 +10,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.a8week.databinding.RecyclerItemBinding
+import com.a8week.model.MemoData
 
-class MainAdapter(val context: Context, private val datas: Array<MemoData>, private val link : MainActivity.RoomToAcitivity)
+class MainAdapter(val context: Context, private val datas: ArrayList<MemoData>, private val link : MainActivity.RoomToAcitivity)
     : RecyclerView.Adapter<MainAdapter.ViewHolder>(){
 
     val TAG = "debugging"
-    var checkarr : Array<Boolean> = Array(datas.size){false}
+    var checkarr  = Array(datas.size){false}
 
     inner class ViewHolder(private val viewBinding: RecyclerItemBinding)
         : RecyclerView.ViewHolder(viewBinding.root){
@@ -34,14 +35,12 @@ class MainAdapter(val context: Context, private val datas: Array<MemoData>, priv
                     if(checkarr[adapterPosition]){
                         viewBinding.btnCheck.setImageResource(R.drawable.check_off)
                         checkarr[adapterPosition] = false
-                        link.setDeleteList(checkarr)
+                        link.setDeleteList(adapterPosition, false)
                     }else{
                         viewBinding.btnCheck.setImageResource(R.drawable.check_on)
                         checkarr[adapterPosition] = true
-                        link.setDeleteList(checkarr)
+                        link.setDeleteList(adapterPosition, true)
                     }
-
-
                 }
 
             }else{
@@ -66,15 +65,16 @@ class MainAdapter(val context: Context, private val datas: Array<MemoData>, priv
                 viewBinding.cv.setOnClickListener {
                     Log.d(TAG,"l")
                     val intent = Intent(context,MakememoActivity::class.java)
+                        .putExtra("id", item.id.toString())
                         .putExtra("title", item.title)
                         .putExtra("text",item.text)
-                        .putExtra("position",adapterPosition.toString())
                     context.startActivity(intent)
                 }
 
+                // 메모 길게 클릭시, 삭제모드 돌입
                 viewBinding.cv.setOnLongClickListener {
                     Log.d(TAG,"ll")
-                    link.deleteStart()
+                    link.deleteStart(adapterPosition)
                     true
                 }
             }
