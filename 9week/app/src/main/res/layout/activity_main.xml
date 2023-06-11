@@ -19,6 +19,20 @@
         android:layout_marginTop="50dp"/>
 
 
+
+    <ImageButton
+        android:id="@+id/btn_naver"
+        android:layout_width="300dp"
+        android:layout_height="45dp"
+        android:src="@drawable/naver_login_btn"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toTopOf="@id/btn_google"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="20dp"/>
+
+
     <com.google.android.gms.common.SignInButton
         android:id="@+id/btn_google"
         android:layout_width="300dp"
