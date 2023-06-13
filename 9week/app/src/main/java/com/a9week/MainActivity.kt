@@ -8,6 +8,7 @@ import android.util.Log
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.a9week.databinding.ActivityMainBinding
+import com.a9week.util.LoginInfo
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -90,8 +91,8 @@ class MainActivity : AppCompatActivity() {
                 // 로그인 성공 부분
                 else if (token != null) {
                     Log.d(TAG, "앱 로그인 성공 ${token.accessToken}")
+                    LoginInfo.setSocial("kakao")
                     val intent = Intent(this,HomeActivity::class.java)
-                        .putExtra("kakao","kakao")
                     startActivity(intent)
                 }
             }
@@ -104,8 +105,8 @@ class MainActivity : AppCompatActivity() {
         val oauthLoginCallback = object : OAuthLoginCallback {
             override fun onSuccess() {
                 // 네이버 로그인 인증이 성공했을 때 수행할 코드 추가
+                LoginInfo.setSocial("naver")
                 val intent = Intent(this@MainActivity,HomeActivity::class.java)
-                    .putExtra("naver","naver")
                 startActivity(intent)
             }
             override fun onFailure(httpStatus: Int, message: String) {
@@ -126,8 +127,8 @@ class MainActivity : AppCompatActivity() {
             Log.e(TAG, "이메일 로그인 실패 $error")
         } else if (token != null) {
             Log.d(TAG, "이메일 로그인 성공 ${token.accessToken}")
+            LoginInfo.setSocial("kakao")
             val intent = Intent(this,HomeActivity::class.java)
-                .putExtra("kakao","kakao")
             startActivity(intent)
         }
     }
@@ -152,8 +153,8 @@ class MainActivity : AppCompatActivity() {
 
                 Log.d(TAG,"이메일 $email\n 이름정보 $familyName $givenName $displayName\n 포토url $photoUrl\n id $id\n idToken $idToken\n")
 
+                LoginInfo.setSocial("google")
                 val intent = Intent(this,HomeActivity::class.java)
-                    .putExtra("google","google")
                 startActivity(intent)
             }
         }
