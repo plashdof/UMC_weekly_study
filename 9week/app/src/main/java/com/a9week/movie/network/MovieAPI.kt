@@ -1,5 +1,6 @@
-package com.a9week.movie.Network
+package com.a9week.movie.network
 
+import com.a9week.movie.models.MovieData
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

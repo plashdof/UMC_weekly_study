@@ -1,12 +1,10 @@
-package com.a9week.movie.Network
+package com.a9week.util
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object RetrofitInterface {
+class RetrofitInterface(val BASE_URL: String) {
 
-
-    val BASE_URL = "https://www.kobis.or.kr/kobisopenapi/webservice/rest/"
 
     val client = Retrofit
         .Builder()
@@ -14,7 +12,7 @@ object RetrofitInterface {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    fun getInstance() : Retrofit {
+    fun getInstance(): Retrofit {
         return client
     }
 

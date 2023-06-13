@@ -31,8 +31,8 @@ class MainActivity : AppCompatActivity() {
     val TAG = "debugging"
     private lateinit var binding : ActivityMainBinding
     private lateinit var resultLauncher : ActivityResultLauncher<Intent>
-    val naverClientId = "HnoNyYn8Uhy_l5QZ1s4i"
-    val naverClientSecret = "JUqGLXLRDf"
+    val naverClientId = "vzCwg8Cgd6VZkaSvxHXC"
+    val naverClientSecret = "3kPMsLc_pe"
     val naverClientName = "네이버 로그인"
 
 

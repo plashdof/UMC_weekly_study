@@ -13,7 +13,7 @@
     <item
         android:id="@+id/ticket_btn"
         android:icon="@drawable/selector_ticket"
-        android:title="영화"/>
+        android:title="티켓"/>
 
     <item
         android:id="@+id/profile_btn"

@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.a9week.databinding.RecyclerMovieBinding
-import com.a9week.movie.Network.MovieBoxRankings
+import com.a9week.movie.models.MovieBoxRankings
 
 class MovieAdapter(val context : Context, val movieList : ArrayList<MovieBoxRankings>)
     : RecyclerView.Adapter< MovieAdapter.ViewHolder>(){

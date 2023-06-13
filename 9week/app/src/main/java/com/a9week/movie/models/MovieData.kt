@@ -1,4 +1,4 @@
-package com.a9week.movie.Network
+package com.a9week.movie.models
 
 data class MovieData(
     val boxOfficeResult : MovieBoxDetail

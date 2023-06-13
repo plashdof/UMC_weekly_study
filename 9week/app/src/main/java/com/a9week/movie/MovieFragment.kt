@@ -7,11 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.a9week.movie.Network.MovieAPI
-import com.a9week.movie.Network.MovieData
-import com.a9week.movie.Network.RetrofitInterface
+import com.a9week.util.RetrofitInterface
 import com.a9week.databinding.FragmentMovieBinding
 import com.a9week.movie.adapter.MovieAdapter
+import com.a9week.movie.network.MovieAPI
+import com.a9week.movie.models.MovieData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,6 +21,7 @@ class MovieFragment : Fragment() {
     private val binding get() = _binding!!
     private val MovieKEY = "f7625c8604721c1f15ffcf29228d617e"
     private val TAG = "debugging"
+    private val BASE_URL = "https://www.kobis.or.kr/kobisopenapi/webservice/rest/"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,7 +35,7 @@ class MovieFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        RetrofitInterface.getInstance().create(MovieAPI::class.java)
+        RetrofitInterface(BASE_URL).getInstance().create(MovieAPI::class.java)
             .getBoxoffice(MovieKEY,"20230612","K").enqueue(object: Callback<MovieData> {
                 override fun onResponse(call: Call<MovieData>, response: Response<MovieData>) {
                     binding.tvTitle.text = response.body()?.boxOfficeResult?.boxofficeType
