@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
+import com.a9week.HomeActivity
 import com.a9week.databinding.FragmentMapBinding
 import com.a9week.map.models.LocationData
 import com.a9week.map.models.Place
@@ -62,6 +63,15 @@ class MapFragment : Fragment(){
                 imm.hideSoftInputFromWindow(view.windowToken, 0)
             }
             return@setOnKeyListener false
+        }
+
+        binding.etSearch.setOnFocusChangeListener{ view, hasFocus ->
+            val activity  =  activity as HomeActivity
+            if(hasFocus){
+                activity.btnHide()
+            }else{
+                activity.btnShow()
+            }
         }
     }
 

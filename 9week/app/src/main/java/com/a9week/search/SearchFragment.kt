@@ -1,6 +1,7 @@
 package com.a9week.search
 
 import android.content.Context
+import android.graphics.Rect
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
@@ -11,15 +12,18 @@ import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.a9week.App
+import com.a9week.HomeActivity
 import com.a9week.databinding.FragmentSearchBinding
 import com.a9week.search.adapter.SearchAdapter
 import com.a9week.search.models.SearchData
 import com.a9week.search.network.SearchAPI
+import com.a9week.util.DisplayUtil
 import com.a9week.util.LoadingDialog
 import com.a9week.util.RetrofitInterface
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import kotlin.math.roundToInt
 
 class SearchFragment : Fragment() {
     private var _binding : FragmentSearchBinding? = null
@@ -29,6 +33,8 @@ class SearchFragment : Fragment() {
     private var searchText = "범죄도시"
     private val naverClientSecret = "3kPMsLc_pe"
     private val naverClientId = "vzCwg8Cgd6VZkaSvxHXC"
+
+
 
     val dialog = LoadingDialog()
     override fun onCreateView(
@@ -46,6 +52,7 @@ class SearchFragment : Fragment() {
         dialog.show(parentFragmentManager,"asd")
 
         binding.etSearch.setOnKeyListener { v, keyCode, event ->
+
             if ((keyCode == KeyEvent.KEYCODE_ENTER)){
                 dialog.show(parentFragmentManager,"asd")
                 binding.etSearch.clearFocus()
@@ -59,6 +66,14 @@ class SearchFragment : Fragment() {
             return@setOnKeyListener false
         }
 
+        binding.etSearch.setOnFocusChangeListener{ view, hasFocus ->
+            val activity  =  activity as HomeActivity
+            if(hasFocus){
+                activity.btnHide()
+            }else{
+                activity.btnShow()
+            }
+        }
 
 
     }
@@ -83,6 +98,10 @@ class SearchFragment : Fragment() {
             })
 
     }
+
+
+
+
 
     override fun onDestroy() {
         super.onDestroy()
