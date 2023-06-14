@@ -12,11 +12,11 @@
 
     <item
         android:id="@+id/ticket_btn"
-        android:icon="@drawable/selector_ticket"
-        android:title="티켓"/>
+        android:icon="@drawable/selector_map"
+        android:title="지도"/>
 
     <item
         android:id="@+id/profile_btn"
         android:icon="@drawable/selector_profile"
-        android:title="영화"/>
+        android:title="프로필"/>
 </menu>

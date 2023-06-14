@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.a9week.App
 import com.a9week.util.RetrofitInterface
 import com.a9week.databinding.FragmentMovieBinding
 import com.a9week.movie.adapter.MovieAdapter
 import com.a9week.movie.network.MovieAPI
 import com.a9week.movie.models.MovieData
+import com.a9week.util.LoadingDialog
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,6 +24,7 @@ class MovieFragment : Fragment() {
     private val MovieKEY = "f7625c8604721c1f15ffcf29228d617e"
     private val TAG = "debugging"
     private val BASE_URL = "https://www.kobis.or.kr/kobisopenapi/webservice/rest/"
+    val dialog = LoadingDialog()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,6 +37,7 @@ class MovieFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        dialog.show(parentFragmentManager,"123")
 
         RetrofitInterface(BASE_URL).getInstance().create(MovieAPI::class.java)
             .getBoxoffice(MovieKEY,"20230612","K").enqueue(object: Callback<MovieData> {
@@ -48,6 +52,7 @@ class MovieFragment : Fragment() {
                     }
                     binding.recycler.adapter = adapter
                     binding.recycler.layoutManager = LinearLayoutManager(context)
+                    dialog.dismiss()
                 }
 
                 override fun onFailure(call: Call<MovieData>, t: Throwable) {

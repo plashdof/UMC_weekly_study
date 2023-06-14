@@ -10,10 +10,12 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.a9week.App
 import com.a9week.databinding.FragmentSearchBinding
 import com.a9week.search.adapter.SearchAdapter
 import com.a9week.search.models.SearchData
 import com.a9week.search.network.SearchAPI
+import com.a9week.util.LoadingDialog
 import com.a9week.util.RetrofitInterface
 import retrofit2.Call
 import retrofit2.Callback
@@ -28,6 +30,7 @@ class SearchFragment : Fragment() {
     private val naverClientSecret = "3kPMsLc_pe"
     private val naverClientId = "vzCwg8Cgd6VZkaSvxHXC"
 
+    val dialog = LoadingDialog()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,8 +43,11 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         startSearch()
 
+        dialog.show(parentFragmentManager,"asd")
+
         binding.etSearch.setOnKeyListener { v, keyCode, event ->
             if ((keyCode == KeyEvent.KEYCODE_ENTER)){
+                dialog.show(parentFragmentManager,"asd")
                 binding.etSearch.clearFocus()
                 searchText = "영화 " + binding.etSearch.text.toString()
                 startSearch()
@@ -69,6 +75,7 @@ class SearchFragment : Fragment() {
                         binding.recycler.adapter = adapter
                         binding.recycler.layoutManager = LinearLayoutManager(requireContext())
                     }
+                    dialog.dismiss()
                 }
 
                 override fun onFailure(call: Call<SearchData>, t: Throwable) {

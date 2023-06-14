@@ -1,4 +1,4 @@
-package com.a9week.ticket.models
+package com.a9week.map.models
 
 data class LocationData(
     val documents: ArrayList<Place>          // 검색 결과

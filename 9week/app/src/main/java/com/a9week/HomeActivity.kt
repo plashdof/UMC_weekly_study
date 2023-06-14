@@ -1,6 +1,5 @@
 package com.a9week
 
-import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -15,7 +14,7 @@ import com.a9week.movie.MovieFragment
 import com.a9week.databinding.ActivityHomeBinding
 import com.a9week.profile.ProfileFragment
 import com.a9week.search.SearchFragment
-import com.a9week.ticket.TicketFragment
+import com.a9week.map.MapFragment
 
 class HomeActivity : AppCompatActivity() {
 
@@ -49,7 +48,7 @@ class HomeActivity : AppCompatActivity() {
 
                     R.id.ticket_btn -> {
                         supportFragmentManager.beginTransaction()
-                            .replace(R.id.frame, TicketFragment())
+                            .replace(R.id.frame, MapFragment())
                             .addToBackStack(null)
                             .commitAllowingStateLoss()
                     }
