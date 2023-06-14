@@ -2,8 +2,6 @@ package com.a9week.search
 
 import android.content.Context
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -26,7 +24,7 @@ class SearchFragment : Fragment() {
     private val binding get() = _binding!!
     private val BASE_URL = "https://openapi.naver.com/"
     private val TAG = "debugging"
-    private var searchText = ""
+    private var searchText = "범죄도시"
     private val naverClientSecret = "3kPMsLc_pe"
     private val naverClientId = "vzCwg8Cgd6VZkaSvxHXC"
 
@@ -40,7 +38,7 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        startSearch()
 
         binding.etSearch.setOnKeyListener { v, keyCode, event ->
             if ((keyCode == KeyEvent.KEYCODE_ENTER)){
@@ -61,7 +59,7 @@ class SearchFragment : Fragment() {
     private fun startSearch(){
 
         RetrofitInterface(BASE_URL).getInstance().create(SearchAPI::class.java)
-            .searchImage(naverClientId,naverClientSecret,searchText,30).enqueue(object: Callback<SearchData> {
+            .searchImage(naverClientId,naverClientSecret,searchText,100).enqueue(object: Callback<SearchData> {
                 override fun onResponse(call: Call<SearchData>, response: Response<SearchData>) {
                     Log.d(TAG,response.raw().toString())
                     Log.d(TAG,response.body()?.items.toString())

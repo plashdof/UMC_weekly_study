@@ -4,6 +4,8 @@
     package="com.a9week">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
     <application
         android:allowBackup="true"
@@ -13,11 +15,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         android:theme="@style/Theme.4week"
         tools:targetApi="31">
         <activity
             android:name="com.a9week.MainActivity"
-            android:exported="true">
+            android:exported="true"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -39,9 +43,14 @@
             </intent-filter>
         </activity>
         
-        <activity android:name=".HomeActivity">
+        <activity android:name=".HomeActivity"
+            android:windowSoftInputMode="adjustResize">
 
         </activity>
+
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="838fc4e08a57b548debcba38b943a928"/>
 
     </application>
 

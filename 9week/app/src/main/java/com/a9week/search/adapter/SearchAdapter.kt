@@ -3,7 +3,6 @@ package com.a9week.search.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.a9week.databinding.RecyclerSearchBinding
 import com.a9week.search.models.SearchItems
